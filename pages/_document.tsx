@@ -10,7 +10,7 @@ export default class DollaUpDocument extends Document {
     ctx: Object;
   }) => {
     const sheet = new ServerStyleSheet();
-    const page = renderPage(App => (props: Object) =>
+    const page = renderPage((App: React.ComponentClass) => (props: Object) =>
       sheet.collectStyles(<App {...props} />)
     );
     const styleTags = sheet.getStyleElement();

@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 
-interface Props {
+import Header from 'components/Header';
+interface IndexProps {
   query: Object;
 }
 
-export default class Index extends React.Component<Props> {
+export default class Index extends Component<IndexProps> {
   render() {
     return (
       <div>
-        <h1>Hello World!</h1>
+        <Header>Hello World!</Header>
         <pre>{JSON.stringify(this.props, null, 2)}</pre>
       </div>
     );

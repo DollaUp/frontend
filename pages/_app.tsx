@@ -1,6 +1,8 @@
 import React from 'react';
 import App, { Container } from 'next/app';
 
+import { ThemeProvider, defaultTheme } from 'utils/styled-components';
+
 export default class DollaUp extends App {
   static getInitialProps = async ({ Component, ctx }) => {
     let pageProps: Object = {};
@@ -18,7 +20,9 @@ export default class DollaUp extends App {
     const { Component, pageProps } = this.props;
     return (
       <Container>
-        <Component {...pageProps} />
+        <ThemeProvider theme={defaultTheme}>
+          <Component {...pageProps} />
+        </ThemeProvider>
       </Container>
     );
   }
