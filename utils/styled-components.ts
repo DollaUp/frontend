@@ -1,9 +1,17 @@
 import * as styledComponents from 'styled-components';
 import { ThemedStyledComponentsModule } from 'styled-components';
+import flatten from 'flat';
 
 interface ThemeInterface {
-  primaryColor: string;
-  primaryColorInverted: string;
+  main: string;
+  accent: string;
+  backgroundColor: string;
+  success: string;
+  pro: {
+    regular: string;
+    dark: string;
+    light: string;
+  };
 }
 
 const {
@@ -14,10 +22,41 @@ const {
   ThemeProvider
 } = styledComponents as ThemedStyledComponentsModule<ThemeInterface>;
 
-const defaultTheme = {
-  primaryColor: 'green',
-  primaryColorInverted: 'red'
+const MAIN_PRO_COLOR = '#2ECE42';
+const MAIN_DARK_PRO_COLOR = '#107C91';
+const MAIN_LIGHT_PRO_COLOR = '#2ECE42';
+const MAIN_BLACK = '#333';
+const MAIN_WHITE = '#F8F8F8';
+
+const mainTheme = flatten({
+  main: MAIN_BLACK,
+  accent: MAIN_WHITE,
+  backgroundColor: MAIN_WHITE,
+  success: MAIN_PRO_COLOR,
+  pro: {
+    regular: MAIN_PRO_COLOR,
+    dark: MAIN_DARK_PRO_COLOR,
+    light: MAIN_LIGHT_PRO_COLOR
+  }
+});
+
+const nightTheme = flatten({
+  ...mainTheme,
+  main: MAIN_WHITE,
+  accent: MAIN_BLACK,
+  backgroundColor: MAIN_BLACK
+});
+
+const useTheme: Function = (themeName: string = 'main') => {
+  switch (themeName) {
+    case 'main':
+      return mainTheme;
+    case 'night':
+      return nightTheme;
+    default:
+      return mainTheme;
+  }
 };
 
-export { css, createGlobalStyle, keyframes, ThemeProvider, defaultTheme };
+export { css, createGlobalStyle, keyframes, ThemeProvider, useTheme };
 export default styled;

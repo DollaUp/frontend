@@ -4,7 +4,7 @@ import { ServerStyleSheet } from 'styled-components';
 export default class DollaUpDocument extends Document {
   static getInitialProps = async ({
     renderPage,
-    ctx
+    ctx // this will be needed when we integrate graphql
   }: {
     renderPage: Function;
     ctx: Object;
