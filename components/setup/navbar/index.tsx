@@ -2,6 +2,8 @@ import React from 'react';
 import Router from 'next/router';
 import NProgress from 'nprogress';
 
+import Link from 'components/common/Link';
+
 Router.onRouteChangeStart = () => {
   NProgress.start();
 };
@@ -13,8 +15,10 @@ Router.onRouteChangeError = () => {
 };
 
 const Navbar: React.SFC = () => (
-  <div>
+  <div className="bar">
     <div>This is the navbar</div>
+    <Link href="/">Index</Link>
+    <Link href="/app">App</Link>
   </div>
 );
 
