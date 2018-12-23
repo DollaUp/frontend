@@ -1,9 +1,11 @@
 import React from 'react';
 import App, { Container } from 'next/app';
+import { ApolloProvider } from 'react-apollo';
 
+import withApollo from 'utils/withApollo';
 import { ThemeProvider, useTheme } from 'utils/styled-components';
 import Page from 'components/setup/page';
-export default class DollaUp extends App {
+class DollaUpApp extends App {
   static getInitialProps = async ({ Component, ctx }) => {
     let pageProps: Object = {};
 
@@ -20,16 +22,19 @@ export default class DollaUp extends App {
   };
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, apollo } = this.props;
     return (
       <Container>
         <ThemeProvider theme={useTheme()}>
-          {/* TODO: add ApolloProvider */}
-          <Page>
-            <Component {...pageProps} />
-          </Page>
+          <ApolloProvider client={apollo}>
+            <Page>
+              <Component {...pageProps} />
+            </Page>
+          </ApolloProvider>
         </ThemeProvider>
       </Container>
     );
   }
 }
+
+export default withApollo(DollaUpApp);
