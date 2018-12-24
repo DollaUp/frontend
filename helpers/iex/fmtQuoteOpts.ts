@@ -1,33 +1,33 @@
 interface response {
-  url: string;
-  params: {
-    symbols?: string;
-    types: string;
+  valid: boolean;
+  data: {
+    url: string;
+    params: {
+      symbols?: string;
+      types: string;
+    };
   };
 }
 
-export default function(
-  tickers: string[],
-  types = ['quote']
-): [boolean, response] {
+export default function(tickers: string[], types = ['quote']): response {
   return tickers.length > 1
-    ? [
-        true,
-        {
+    ? {
+        valid: true,
+        data: {
           url: '/stock/market/batch',
           params: {
             symbols: tickers.join(','),
             types: types.join(',')
           }
         }
-      ]
-    : [
-        true,
-        {
+      }
+    : {
+        valid: true,
+        data: {
           url: `/stock/${tickers}/batch`,
           params: {
             types: types.join(',')
           }
         }
-      ];
+      };
 }

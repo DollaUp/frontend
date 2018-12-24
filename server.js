@@ -10,10 +10,10 @@ app
   .then(() => {
     const server = express();
 
-    server.get('/q/:ticker', (req, res) => {
+    server.get('/q/:quote', (req, res) => {
       const page = '/q';
       const query = {
-        quote: req.params.ticker
+        quote: req.params.quote
       };
       app.render(req, res, page, query);
     });

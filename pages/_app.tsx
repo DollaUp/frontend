@@ -1,10 +1,13 @@
 import React from 'react';
 import App, { Container, AppComponentContext } from 'next/app';
 import { ApolloProvider } from 'react-apollo';
+import _isUndefined from 'lodash/isUndefined';
+import _isEmpty from 'lodash/isEmpty';
 
 import withApollo from 'utils/withApollo';
 import { ThemeProvider, useTheme } from 'utils/styled-components';
 import Page from 'components/setup/page';
+import ErrorWrapper from 'components/setup/error';
 
 class DollaUpApp extends App {
   static getInitialProps = async ({ Component, ctx }: AppComponentContext) => {
@@ -29,7 +32,9 @@ class DollaUpApp extends App {
         <ThemeProvider theme={useTheme()}>
           <ApolloProvider client={apollo}>
             <Page>
-              <Component {...pageProps} />
+              <ErrorWrapper error={pageProps.error}>
+                <Component {...pageProps} />
+              </ErrorWrapper>
             </Page>
           </ApolloProvider>
         </ThemeProvider>

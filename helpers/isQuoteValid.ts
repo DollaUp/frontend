@@ -8,21 +8,30 @@ import _toUpper from 'lodash/toUpper';
 import _ from 'lodash';
 
 interface QueryInterface {
-  quote?: string | string[] | undefined;
+  [quote: string]: string | string[] | undefined;
 }
 
-export default function(
-  query: QueryInterface,
-  queryKey = 'quote'
-): [boolean, string[]] {
-  if (_isEmpty(query)) return [false, []];
+interface response {
+  valid: boolean;
+  data: string[];
+}
+
+export default function(query: QueryInterface, queryKey = 'quote'): response {
+  if (_isEmpty(query)) return { valid: false, data: [] };
   const quote = query[queryKey];
   if (_isUndefined(quote) || _isEmpty(quote) || !_isString(quote)) {
-    return [false, []];
+    return {
+      data: [],
+      valid: false
+    };
   }
   const tickers = _.chain(_split(quote, ','))
     .filter(x => !_isEmpty(x))
     .map(x => _toUpper(_trim(x, ' !@#$%^&*()-_+=[];:<>/?."')))
+    .uniq()
     .value();
-  return [true, tickers];
+  return {
+    valid: true,
+    data: tickers
+  };
 }

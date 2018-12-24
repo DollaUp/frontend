@@ -29,7 +29,7 @@ const Navbar: React.SFC = () => (
       </span>
     </div>
     <div className="mt-2">
-      {['AAPL', 'AAPL,TWLO', 'TWLO', 'SPOT'].map(ticker => (
+      {['AAPL', 'AAPL,TWLO', 'TWLO', 'SPOT', 'AKDJSF'].map(ticker => (
         <span key={ticker} className="mr-1">
           <Link
             href={{
