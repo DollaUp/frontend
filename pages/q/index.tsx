@@ -1,11 +1,10 @@
 import React from 'react';
 import { NextContext } from 'next';
 import Head from 'next/head';
-import iexRequest from 'utils/request/iex';
+import Router from 'next/router';
 
-import isQuoteValid from 'helpers/isQuoteValid';
-import fmtQuoteOpts from 'helpers/iex/fmtQuoteOpts';
-
+import makeStockRequest from 'helpers/iex/makeStockRequest';
+import RefreshButton from 'components/RefreshButton';
 interface IndexProps {
   readonly query: Object;
   readonly tickers?: string[] | undefined;
@@ -21,32 +20,13 @@ interface IndexProps {
 
 export default class Index extends React.Component<IndexProps> {
   static getInitialProps = async ({ query }: NextContext) => {
-    const tickers = isQuoteValid(query);
-    if (!tickers.valid) return {};
-    const iexOpts = fmtQuoteOpts(tickers.data, ['ohlc']);
-    if (!iexOpts.valid) return {};
-    const res = await iexRequest(iexOpts.data);
-    if (res.status !== 200) {
-      return {
-        error: {
-          status: res.status,
-          statusText: res.statusText,
-          info: {
-            title: 'I FAILED HERE',
-            description: 'this stock does not exist',
-            redirect: {
-              text: 'You Dummy!',
-              href: '/q'
-            }
-          }
-        },
-        tickers: tickers.data
-      };
-    }
-    return {
-      data: res.data,
-      tickers: tickers.data
-    };
+    const requestProps = await makeStockRequest({
+      query,
+      opts: {
+        types: ['ohlc']
+      }
+    });
+    return requestProps;
   };
 
   render() {
@@ -56,6 +36,7 @@ export default class Index extends React.Component<IndexProps> {
         <Head>
           <title>{`${tickers || 'Search'} - Dolla Up`}</title>
         </Head>
+        <RefreshButton />
         <h2 className="page-header">Quote Index!</h2>
         <pre>{JSON.stringify(this.props, null, 2)}</pre>
       </div>

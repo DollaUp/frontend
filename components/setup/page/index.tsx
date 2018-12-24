@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Meta from 'components/setup/Meta';
-import GlobalStyle from 'components/global_style';
-import Navbar from 'components/setup/navbar';
+import GlobalStyle from 'components/GlobalStyle';
+import Navbar from 'components/setup/Navbar';
 
 type PageProps = {
   children: React.ReactNode;

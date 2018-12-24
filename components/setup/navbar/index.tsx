@@ -16,7 +16,7 @@ Router.onRouteChangeError = () => {
 const Navbar: React.SFC = () => (
   <div className="bar">
     <div className="mt-2">This is the navbar</div>
-    <div className="mt-2">
+    <div className="mt-1">
       <span className="mr-1">
         <Link href="/">
           <a>Index</a>
@@ -28,7 +28,7 @@ const Navbar: React.SFC = () => (
         </Link>
       </span>
     </div>
-    <div className="mt-2">
+    <div className="mt-1">
       {['AAPL', 'AAPL,TWLO', 'TWLO', 'SPOT', 'AKDJSF'].map(ticker => (
         <span key={ticker} className="mr-1">
           <Link

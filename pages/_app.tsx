@@ -6,8 +6,8 @@ import _isEmpty from 'lodash/isEmpty';
 
 import withApollo from 'utils/withApollo';
 import { ThemeProvider, useTheme } from 'utils/styled-components';
-import Page from 'components/setup/page';
-import ErrorWrapper from 'components/setup/error';
+import Page from 'components/setup/Page';
+import ErrorWrapper from 'components/setup/Error';
 
 class DollaUpApp extends App {
   static getInitialProps = async ({ Component, ctx }: AppComponentContext) => {
