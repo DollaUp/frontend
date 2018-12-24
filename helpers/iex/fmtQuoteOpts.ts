@@ -1,3 +1,4 @@
+import _uniq from 'lodash/uniq';
 interface response {
   valid: boolean;
   data: {
@@ -10,6 +11,7 @@ interface response {
 }
 
 export default function(tickers: string[], types = ['quote']): response {
+  const allTypes = _uniq([...types, 'quote']);
   return tickers.length > 1
     ? {
         valid: true,
@@ -17,7 +19,7 @@ export default function(tickers: string[], types = ['quote']): response {
           url: '/stock/market/batch',
           params: {
             symbols: tickers.join(','),
-            types: types.join(',')
+            types: allTypes.join(',')
           }
         }
       }
@@ -26,7 +28,7 @@ export default function(tickers: string[], types = ['quote']): response {
         data: {
           url: `/stock/${tickers}/batch`,
           params: {
-            types: types.join(',')
+            types: allTypes.join(',')
           }
         }
       };

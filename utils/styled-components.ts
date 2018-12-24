@@ -7,11 +7,15 @@ interface ThemeInterface {
   accent: string;
   backgroundColor: string;
   success: string;
-  pro: {
-    regular: string;
-    dark: string;
-    light: string;
-  };
+  'pro.regular': string;
+  'pro.dark': string;
+  'pro.light': string;
+
+  'sizes.small': string;
+  'sizes.medium': string;
+  'sizes.large': string;
+
+  [name: string]: string;
 }
 
 const {
@@ -37,6 +41,11 @@ const mainTheme = flatten({
     regular: MAIN_PRO_COLOR,
     dark: MAIN_DARK_PRO_COLOR,
     light: MAIN_LIGHT_PRO_COLOR
+  },
+  sizes: {
+    small: '2rem',
+    medium: '3rem',
+    large: '4rem'
   }
 });
 

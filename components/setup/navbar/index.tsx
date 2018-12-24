@@ -3,6 +3,8 @@ import Router from 'next/router';
 import Link from 'next/link';
 import NProgress from 'nprogress';
 
+import NavStyles from './styles';
+
 Router.onRouteChangeStart = () => {
   NProgress.start();
 };
@@ -14,17 +16,16 @@ Router.onRouteChangeError = () => {
 };
 
 const Navbar: React.SFC = () => (
-  <div className="bar">
-    <div className="mt-2">This is the navbar</div>
+  <NavStyles className="bar">
     <div className="mt-1">
       <span className="mr-1">
-        <Link href="/">
-          <a>Index</a>
+        <Link href="/home">
+          <a>Home</a>
         </Link>
       </span>
       <span className="mr-1">
         <Link href="/q">
-          <a>QuotePage</a>
+          <a>Quote Page</a>
         </Link>
       </span>
     </div>
@@ -45,7 +46,7 @@ const Navbar: React.SFC = () => (
         </span>
       ))}
     </div>
-  </div>
+  </NavStyles>
 );
 
 export default Navbar;

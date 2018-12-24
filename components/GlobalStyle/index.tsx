@@ -19,7 +19,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     background-color: ${props => props.theme.backgroundColor};
     font-family: 'system-ui';
-    margin: 0;
+    margin: 0 20px;
     padding: 0;
 
     ${headerStyles}

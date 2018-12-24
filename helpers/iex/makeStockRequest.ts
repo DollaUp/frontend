@@ -1,4 +1,7 @@
+import _keys from 'lodash/keys';
+
 import isQuoteValid from 'helpers/isQuoteValid';
+import validateTickers from 'helpers/validateTickers';
 import fmtQuoteOpts from 'helpers/iex/fmtQuoteOpts';
 import iexRequest from 'utils/request/iex';
 
@@ -42,16 +45,17 @@ export default async function({
   query: QueryInterface;
   opts?: OptsParam;
 }) {
-  const tickers = isQuoteValid(query);
-  if (!tickers.valid) return {};
-  const iexOpts = fmtQuoteOpts(tickers.data, opts.types);
+  const queryTickers = isQuoteValid(query);
+  if (!queryTickers.valid) return {};
+  const iexOpts = fmtQuoteOpts(queryTickers.data, opts.types);
   if (!iexOpts.valid) return {};
   const res = await iexRequest(iexOpts.data);
+  const tickers = validateTickers(res.data, queryTickers.data);
   switch (res.status) {
     case 200:
       return {
         data: res.data,
-        tickers: tickers.data
+        tickers: tickers.valid ? tickers.data : {}
       };
     case 404:
       return {
@@ -67,7 +71,7 @@ export default async function({
             }
           }
         },
-        tickers: tickers.data
+        tickers: tickers.valid ? tickers.data : {}
       };
     default:
       return {
@@ -82,7 +86,7 @@ export default async function({
             }
           }
         },
-        tickers: tickers.data
+        tickers: tickers.valid ? tickers.data : {}
       };
   }
 }
