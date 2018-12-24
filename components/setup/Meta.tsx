@@ -21,7 +21,7 @@ const Meta = () => (
       content="width=device-width,initial-scale=1.0"
     />
     {/* TODO: add favicon */}
-    <link rel="stylesheet" type="text/css" href="/static/nprogress.scss" />
+    <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
   </Head>
 );
 

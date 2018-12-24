@@ -6,6 +6,7 @@ module.exports = withTypescript({
     // this enables absolute imports
     config.resolve.alias.components = path.join(__dirname, 'components');
     config.resolve.alias.utils = path.join(__dirname, 'utils');
+    config.resolve.alias.helpers = path.join(__dirname, 'helpers');
     return config;
   }
 });

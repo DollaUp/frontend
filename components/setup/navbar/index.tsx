@@ -1,8 +1,7 @@
 import React from 'react';
 import Router from 'next/router';
+import Link from 'next/link';
 import NProgress from 'nprogress';
-
-import Link from 'components/common/Link';
 
 Router.onRouteChangeStart = () => {
   NProgress.start();
@@ -16,9 +15,36 @@ Router.onRouteChangeError = () => {
 
 const Navbar: React.SFC = () => (
   <div className="bar">
-    <div>This is the navbar</div>
-    <Link href="/">Index</Link>
-    <Link href="/app">App</Link>
+    <div className="mt-2">This is the navbar</div>
+    <div className="mt-2">
+      <span className="mr-1">
+        <Link href="/">
+          <a>Index</a>
+        </Link>
+      </span>
+      <span className="mr-1">
+        <Link href="/q">
+          <a>QuotePage</a>
+        </Link>
+      </span>
+    </div>
+    <div className="mt-2">
+      {['AAPL', 'AAPL,TWLO', 'TWLO', 'SPOT'].map(ticker => (
+        <span key={ticker} className="mr-1">
+          <Link
+            href={{
+              pathname: '/q',
+              query: {
+                quote: encodeURI(ticker)
+              }
+            }}
+            as={`/q/${ticker}`}
+          >
+            <a>{ticker}</a>
+          </Link>
+        </span>
+      ))}
+    </div>
   </div>
 );
 

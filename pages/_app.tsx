@@ -1,12 +1,13 @@
 import React from 'react';
-import App, { Container } from 'next/app';
+import App, { Container, AppComponentContext } from 'next/app';
 import { ApolloProvider } from 'react-apollo';
 
 import withApollo from 'utils/withApollo';
 import { ThemeProvider, useTheme } from 'utils/styled-components';
 import Page from 'components/setup/page';
+
 class DollaUpApp extends App {
-  static getInitialProps = async ({ Component, ctx }) => {
+  static getInitialProps = async ({ Component, ctx }: AppComponentContext) => {
     let pageProps: Object = {};
 
     if (Component.getInitialProps) {
