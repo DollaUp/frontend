@@ -18,6 +18,14 @@ app
       app.render(req, res, page, query);
     });
 
+    server.get('/q/:quote/news', (req, res) => {
+      const page = '/q/news';
+      const query = {
+        quote: req.params.quote
+      };
+      app.render(req, res, page, query);
+    });
+
     server.get('*', (req, res) => {
       return handle(req, res);
     });

@@ -5,7 +5,7 @@ import _isEmpty from 'lodash/isEmpty';
 import _isString from 'lodash/isString';
 import _keys from 'lodash/keys';
 
-type response = {
+type ResponseType = {
   valid: boolean;
   data: {
     invalid?: string[];
@@ -13,7 +13,7 @@ type response = {
   };
 };
 
-type dataType =
+type DataType =
   | string
   | {
       quote: {
@@ -27,9 +27,9 @@ const isValid: Function = (arg: string[]): boolean =>
   !(_isUndefined(arg) || _isEmpty(arg));
 
 export default function(
-  resData: dataType,
+  resData: DataType,
   tickersFromQuery: string[]
-): response {
+): ResponseType {
   if (!isValid(resData) || !isValid(tickersFromQuery) || _isString(resData)) {
     return {
       valid: false,

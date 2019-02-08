@@ -17,10 +17,6 @@ export default styled.div`
     padding-left: 0.5rem;
 
     min-width: 300px;
-
-    &:active {
-      outline: green;
-    }
   }
 
   button {
@@ -29,5 +25,9 @@ export default styled.div`
     border-bottom-right-radius: 0.25rem;
     color: ${props => props.theme.accent};
     background-color: ${props => props.theme.main};
+
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
 `;

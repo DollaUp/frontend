@@ -7,16 +7,16 @@ import _toUpper from 'lodash/toUpper';
 
 import _ from 'lodash';
 
-interface QueryInterface {
+type QueryType = {
   [quote: string]: string | string[] | undefined;
-}
+};
 
-interface response {
+type ResponseType = {
   valid: boolean;
   data: string[];
-}
+};
 
-export default function(query: QueryInterface, queryKey = 'quote'): response {
+export default function(query: QueryType, queryKey = 'quote'): ResponseType {
   if (_isEmpty(query)) return { valid: false, data: [] };
   const quote = query[queryKey];
   if (_isUndefined(quote) || _isEmpty(quote) || !_isString(quote)) {

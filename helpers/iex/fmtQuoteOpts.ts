@@ -1,5 +1,6 @@
 import _uniq from 'lodash/uniq';
-interface response {
+
+type ResponseType = {
   valid: boolean;
   data: {
     url: string;
@@ -8,9 +9,9 @@ interface response {
       types: string;
     };
   };
-}
+};
 
-export default function(tickers: string[], types = ['quote']): response {
+export default function(tickers: string[], types = ['quote']): ResponseType {
   const allTypes = _uniq([...types, 'quote']);
   return tickers.length > 1
     ? {

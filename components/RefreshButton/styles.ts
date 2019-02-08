@@ -18,6 +18,9 @@ const Button = styled.button`
 
   cursor: pointer;
 
+  &:disabled {
+    cursor: not-allowed;
+  }
   &:hover {
     box-shadow: none;
   }

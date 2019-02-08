@@ -2,23 +2,23 @@ import { number } from 'prop-types';
 
 namespace IEXQuoteResponse {
   export interface SingleQuote {
-    quote?: IEXQuote;
-    news?: IEXNews[];
-    chart?: IEXChart[];
-    company?: IEXCompany[];
-    dividend?: IEXDividend[];
-    'delayed-quote'?: IEXDelayedQuote;
-    earnings?: IEXEarnings;
-    'today-earnings'?: IEXTodayEarnings;
-    'effective-spread'?: IEXEffectiveSpread[];
-    stats?: IEXStats;
+    quote?: IEXQuoteInterface;
+    news?: IEXNewsInterface[];
+    chart?: IEXChartInterface[];
+    company?: IEXCompanyInterface[];
+    dividend?: IEXDividendInterface[];
+    'delayed-quote'?: IEXDelayedQuoteInterface;
+    earnings?: IEXEarningsInterface;
+    'today-earnings'?: IEXTodayEarningsInterface;
+    'effective-spread'?: IEXEffectiveSpreadInterface[];
+    stats?: IEXStatsInterface;
     // TODO: largest trades
-    logo?: IEXLogo;
-    ohlc?: IEXOHLC;
+    logo?: IEXLogoInterface;
+    ohlc?: IEXOHLCInterface;
     peers?: string[];
-    previous?: IEXPrevious;
+    previous?: IEXPreviousInterface;
     price?: number;
-    relevant?: IEXRelevant;
+    relevant?: IEXRelevantInterface;
     // TODO: splits
   }
 
@@ -27,7 +27,7 @@ namespace IEXQuoteResponse {
   }
 }
 
-interface IEXQuote {
+export interface IEXQuoteInterface {
   symbol: string;
   companyName: string;
   primaryExchange: string;
@@ -70,7 +70,7 @@ interface IEXQuote {
   ytdChange: number;
 }
 
-interface IEXNews {
+interface IEXNewsInterface {
   datetime: string;
   headline: string;
   source: string;
@@ -80,7 +80,7 @@ interface IEXNews {
   image: string;
 }
 
-interface IEXChart {
+interface IEXChartInterface {
   date: string;
   open: number;
   high: number;
@@ -94,7 +94,7 @@ interface IEXChart {
   changeOverTime: number;
 }
 
-interface IEXCompany {
+interface IEXCompanyInterface {
   symbol: string;
   companyName: string;
   exchange: string;
@@ -107,7 +107,7 @@ interface IEXCompany {
   tags: string[];
 }
 
-interface IEXDividend {
+interface IEXDividendInterface {
   exDate: string;
   paymentDate: string;
   recordDate: string;
@@ -119,7 +119,7 @@ interface IEXDividend {
   indicated: string;
 }
 
-interface IEXDelayedQuote {
+interface IEXDelayedQuoteInterface {
   symbol: string;
   delayedPrice: number;
   high: number;
@@ -129,7 +129,7 @@ interface IEXDelayedQuote {
   processedTime: number;
 }
 
-interface IEXEarnings {
+interface IEXEarningsInterface {
   symbol: string;
   earnings: {
     actualEPS: number;
@@ -148,7 +148,7 @@ interface IEXEarnings {
   };
 }
 
-interface IEXTodayEarnings {
+interface IEXTodayEarningsInterface {
   [name: string]: {
     quote: {
       symbol: string;
@@ -195,7 +195,7 @@ interface IEXTodayEarnings {
   };
 }
 
-interface IEXEffectiveSpread {
+interface IEXEffectiveSpreadInterface {
   volume: number;
   venue: string;
   venueName: string;
@@ -204,7 +204,7 @@ interface IEXEffectiveSpread {
   priceImprovement: number;
 }
 
-interface IEXFinancials {
+interface IEXFinancialsInterface {
   symbol: string;
   financials: {
     reportDate: string;
@@ -230,7 +230,7 @@ interface IEXFinancials {
   }[];
 }
 
-interface IEXStats {
+interface IEXStatsInterface {
   companyName: string;
   marketcap: number;
   beta: number;
@@ -284,11 +284,11 @@ interface IEXStats {
   day30ChangePercent: number;
 }
 
-interface IEXLogo {
+interface IEXLogoInterface {
   url: string;
 }
 
-interface IEXOHLC {
+interface IEXOHLCInterface {
   high: number;
   low: number;
   open: {
@@ -301,7 +301,7 @@ interface IEXOHLC {
   };
 }
 
-interface IEXPrevious {
+interface IEXPreviousInterface {
   symbol: string;
   date: string;
   open: number;
@@ -314,7 +314,7 @@ interface IEXPrevious {
   vwap: number;
 }
 
-interface IEXRelevant {
+interface IEXRelevantInterface {
   peers: boolean;
   symbols: string[];
 }

@@ -4,19 +4,14 @@ import Head from 'next/head';
 import _isUndefined from 'lodash/isUndefined';
 
 import makeStockRequest from 'helpers/iex/makeStockRequest';
-import QuoteSearch from 'components/common/inputs/QuoteSearch';
-import QuoteHome from 'components/q/QuoteHome';
+import QuoteLayout from 'components/q/QuoteLayout';
+import QuoteHeader from 'components/q/Header';
 
-import { IEXQuoteInterface } from 'helpers/iex/interfaces';
-
-interface IndexProps {
+interface NewsProps {
   readonly query: Object;
   readonly tickers?: {
     valid?: string[];
     invalid?: string[];
-  };
-  readonly data: {
-    quote: IEXQuoteInterface;
   };
 }
 
@@ -28,21 +23,19 @@ interface IndexProps {
  *   - depending on number of tickers specified (comma-separated), render the page accordingly
  */
 
-const requestKey = 'quote';
-
-export default class Index extends React.Component<IndexProps> {
+export default class News extends React.Component<NewsProps> {
   static getInitialProps = async ({ query }: NextContext) => {
     const requestProps = await makeStockRequest({
       query,
       opts: {
-        types: [requestKey]
+        types: ['news']
       }
     });
     return requestProps;
   };
 
   render() {
-    const { tickers, data } = this.props;
+    const { tickers } = this.props;
     const pageTitle = !_isUndefined(tickers)
       ? tickers.valid || 'Invalid tickers!'
       : 'Search';
@@ -55,19 +48,10 @@ export default class Index extends React.Component<IndexProps> {
       switch (tickers.valid.length) {
         case 0: // this should never be the case
           content = null;
-          break;
         case 1:
-          content = (
-            <QuoteHome
-              ticker={tickers.valid[0]}
-              invalidTickers={tickers.invalid || []}
-              data={data[requestKey]}
-            />
-          );
-          break;
+          content = null; // SingleQuoteWrapper
         default:
           content = null; // MultipleQuoteWrapper
-          break;
       }
     } else if (!_isUndefined(tickers.invalid)) {
       if (tickers.invalid.length > 0) {
@@ -76,13 +60,10 @@ export default class Index extends React.Component<IndexProps> {
     }
     return (
       <div>
-        <div className="my-3">
-          <QuoteSearch />
-        </div>
         <Head>
           <title>{`${pageTitle} - Dolla Up`}</title>
         </Head>
-        {content}
+        <QuoteHeader tickers={tickers} />
       </div>
     );
   }

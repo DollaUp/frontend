@@ -5,11 +5,11 @@ import validateTickers from 'helpers/validateTickers';
 import fmtQuoteOpts from 'helpers/iex/fmtQuoteOpts';
 import iexRequest from 'utils/request/iex';
 
-type QueryInterface = {
+type QueryType = {
   [quote: string]: string | string[] | undefined;
 };
 
-type OptsParam = {
+type OptsParamType = {
   types?: string[];
   errors?: {
     [statusCode: number]: {
@@ -42,8 +42,8 @@ export default async function({
   query,
   opts = {}
 }: {
-  query: QueryInterface;
-  opts?: OptsParam;
+  query: QueryType;
+  opts?: OptsParamType;
 }) {
   const queryTickers = isQuoteValid(query);
   if (!queryTickers.valid) return {};
